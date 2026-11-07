@@ -1,0 +1,28 @@
+version: 1
+params:
+  directory:
+    type: directory
+    label: PromiseGate project directory
+    description: Select the folder containing gate.py.
+  bridge:
+    type: bridge
+    label: Team chat connector
+    default: [Mattermost, $first]
+agent:
+  name: promise-review
+  description: Reviews customer release claims against evidence and prepares an approval-bound release note.
+  provider: codex
+  location: local
+  directory: "{directory}"
+  addressing: owner
+  instructions: |
+    Before handling any release request, read switch/agent-instructions.md
+    from your project directory and follow its review, revision and approval
+    procedure. If it is missing, ask the owner to correct the working directory.
+room:
+  name: release-desk
+  description: Review the evidence behind customer-facing release notes.
+  bridge: "{bridge}"
+  channel_type: channel_private
+  agents: [promise-review]
+  users: ["{$creator}"]

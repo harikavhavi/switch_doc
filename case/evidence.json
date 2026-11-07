@@ -1,0 +1,26 @@
+{
+  "release": "export-2.8.0",
+  "checks": {
+    "PG-104-PRO": true,
+    "PG-105-FREE": false,
+    "PG-106-CSV": true,
+    "PG-107-XLSX": false
+  },
+  "claims": {
+    "csv-all-plans": {
+      "copy": "Workspace admins on every plan can export reports as CSV.",
+      "requires": ["PG-104-PRO", "PG-105-FREE", "PG-106-CSV"],
+      "reason": "Free-plan export returned 403 in the demo evidence."
+    },
+    "csv-pro": {
+      "copy": "Pro workspace admins can export reports as CSV.",
+      "requires": ["PG-104-PRO", "PG-106-CSV"],
+      "reason": "The Pro-admin and CSV-format checks passed."
+    },
+    "xlsx-pro": {
+      "copy": "Pro workspace admins can export reports as Excel workbooks.",
+      "requires": ["PG-104-PRO", "PG-107-XLSX"],
+      "reason": "The XLSX format returned 415 in the demo evidence."
+    }
+  }
+}
